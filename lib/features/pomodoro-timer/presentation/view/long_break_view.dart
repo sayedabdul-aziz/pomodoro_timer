@@ -10,12 +10,12 @@ class LongBreakView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<TimerCubit>();
-    cubit.setSeconds(cubit.longTimer);
+    cubit.getLongTimer();
     return Scaffold(
       backgroundColor: AppColors.longBackgroundColor,
       body: BodyContentWidget(
           status: 'Long Break',
-          icon: Icons.coffee_rounded,
+          icon: Icons.coffee_outlined,
           textColor: AppColors.longTextColor,
           lightColor: AppColors.longlightColor,
           primaryColor: AppColors.longPrimaryColor),

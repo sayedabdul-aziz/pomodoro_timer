@@ -10,12 +10,13 @@ class PomodoroView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<TimerCubit>();
-    cubit.setSeconds(cubit.focusTimer);
+    cubit.getFocusTimer();
+
     return Scaffold(
       backgroundColor: AppColors.focusBackgroundColor,
       body: BodyContentWidget(
           status: 'Focus',
-          icon: Icons.flourescent_sharp,
+          icon: Icons.center_focus_strong_rounded,
           textColor: AppColors.focusTextColor,
           lightColor: AppColors.focuslightColor,
           primaryColor: AppColors.focusPrimaryColor),

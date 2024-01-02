@@ -57,6 +57,7 @@ class BodyContentWidget extends StatelessWidget {
           BlocBuilder<TimerCubit, TimerState>(
             builder: (context, state) {
               var time = formatDuration(cubit.seconds);
+
               return Column(
                 children: [
                   // min Text

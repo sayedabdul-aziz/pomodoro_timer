@@ -10,12 +10,12 @@ class ShortBreakView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<TimerCubit>();
-    cubit.setSeconds(cubit.shortTimer);
+    cubit.getShortTimer();
     return Scaffold(
       backgroundColor: AppColors.shortBackgroundColor,
       body: BodyContentWidget(
           status: 'Short Break',
-          icon: Icons.coffee_rounded,
+          icon: Icons.coffee_outlined,
           textColor: AppColors.shortTextColor,
           lightColor: AppColors.shortlightColor,
           primaryColor: AppColors.shortPrimaryColor),
