@@ -37,5 +37,5 @@ TextStyle getSemiBoldStyle(
 // bold style
 
 TextStyle getBoldStyle({double fontSize = FontSize.s14, required Color color}) {
-  return _getTextStyle(fontSize, FontWeightManager.bold, color);
+  return _getTextStyle(fontSize, FontWeight.w900, color);
 }
