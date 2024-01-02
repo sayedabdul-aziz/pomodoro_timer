@@ -6,10 +6,15 @@ ThemeData getAppTheme() {
   return ThemeData(
       // appbar theme
       appBarTheme: AppBarTheme(
-          backgroundColor: AppColors.focusBackgroundColor, elevation: 0.0),
+          centerTitle: true,
+          titleTextStyle:
+              getSemiBoldStyle(fontSize: 20, color: AppColors.focusTextColor),
+          backgroundColor: AppColors.focusBackgroundColor,
+          elevation: 0.0),
 
       // floatingActionButtonTheme
       floatingActionButtonTheme: FloatingActionButtonThemeData(
+          elevation: 0.2,
           shape: ContinuousRectangleBorder(
               borderRadius: BorderRadius.circular(30))),
 

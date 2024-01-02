@@ -9,13 +9,11 @@ class ListTileItem extends StatelessWidget {
     super.key,
     required this.cubit,
     required this.text,
-    required this.onChanged,
     required this.con,
   });
 
   final TimerCubit cubit;
   final String text;
-  final Function(String)? onChanged;
   final TextEditingController con;
 
   @override
@@ -34,7 +32,6 @@ class ListTileItem extends StatelessWidget {
             width: 80,
             child: TextFormField(
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              onChanged: onChanged,
               controller: con,
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,

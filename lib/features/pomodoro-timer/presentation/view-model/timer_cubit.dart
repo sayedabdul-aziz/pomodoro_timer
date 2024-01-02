@@ -12,8 +12,8 @@ class TimerCubit extends Cubit<TimerState> {
   // users will set the time from settings view from focus, long and short break.
 
   int focusTimer = 1500; //initial focus Timer => 25 min = 1500 seconds,
-  int shortTimer = 300; //initial focus Timer => 5 min = 300 seconds,
-  int longTimer = 900; // //initial focus Timer => 15 min = 900 seconds,
+  late int shortTimer; //initial focus Timer => 5 min = 300 seconds,
+  late int longTimer; // //initial focus Timer => 15 min = 900 seconds,
 
   int round = 0; // no of pomodoro rounds
 
@@ -24,8 +24,9 @@ class TimerCubit extends Cubit<TimerState> {
         emit(PlayingState());
       } else {
         // increase no of pomodoro rounds
-        round++;
         _timer?.cancel();
+        round++;
+
         emit((InitialState()));
       }
     });
@@ -36,17 +37,17 @@ class TimerCubit extends Cubit<TimerState> {
     emit(PausedState());
   }
 
-  restart() {
-    _timer?.cancel();
-    seconds = 1500;
-    emit(InitialState());
-  }
-
   // when navigate to a new state we will use this setter
 
   setSeconds(int sec) {
     _timer?.cancel();
     seconds = sec;
+    emit(InitialState());
+  }
+
+  setRound() {
+    _timer?.cancel();
+    round++;
     emit(InitialState());
   }
 
@@ -75,6 +76,8 @@ class TimerCubit extends Cubit<TimerState> {
   getFocusTimer() {
     AppLocal.getCachedData(AppLocal.focusTimer).then((value) {
       focusTimer = value ?? 1500;
+      print(value);
+      print(focusTimer);
     });
     emit(InitialState());
   }

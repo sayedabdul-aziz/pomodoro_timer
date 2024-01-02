@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pomodoro_timer/configuration/size_configuration.dart';
 import 'package:pomodoro_timer/core/functions/handle_time.dart';
 import 'package:pomodoro_timer/core/styles/styles_manager.dart';
 import 'package:pomodoro_timer/core/utils/routers.dart';
@@ -28,16 +27,15 @@ class BodyContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = SizeConfiguration.screenHeight!;
     var textStyle = (status != 'Focus')
         ? getLightStyle(
-            fontSize: height * .168,
+            fontSize: 120,
             color: textColor,
           ).copyWith(
             height: 0,
           )
         : getBoldStyle(
-            fontSize: height * .168,
+            fontSize: 120,
             color: textColor,
           ).copyWith(
             height: 0,
@@ -95,9 +93,10 @@ class BodyContentWidget extends StatelessWidget {
                 child: FloatingActionButton(
                     heroTag: 'settings',
                     backgroundColor: lightColor,
-                    elevation: 0.0,
+                    foregroundColor: textColor,
                     child: const Icon(Icons.more_horiz_rounded),
                     onPressed: () {
+                      cubit.paused();
                       GoRouter.of(context).push(AppRouter.kSettings);
                     }),
               ),
@@ -114,13 +113,13 @@ class BodyContentWidget extends StatelessWidget {
                         ? FloatingActionButton(
                             heroTag: 'pause',
                             backgroundColor: primaryColor,
-                            elevation: 0.0,
+                            foregroundColor: textColor,
                             child: const Icon(Icons.pause),
                             onPressed: () => cubit.paused())
                         : FloatingActionButton(
                             heroTag: 'play',
                             backgroundColor: primaryColor,
-                            elevation: 0.0,
+                            foregroundColor: textColor,
                             child: const Icon(Icons.play_arrow),
                             onPressed: () => cubit.playing());
                   },
@@ -135,22 +134,24 @@ class BodyContentWidget extends StatelessWidget {
                 child: FloatingActionButton(
                     heroTag: 'next state',
                     backgroundColor: lightColor,
-                    elevation: 0.0,
-                    child: const Icon(Icons.skip_next_rounded),
+                    foregroundColor: textColor,
+                    child: const Icon(Icons.fast_forward),
                     onPressed: () {
-                      cubit.restart();
                       //Two short breaks and then a long break, for ex.
                       // Focus > Short break > Focus > Short break > Focus > Long break > Focus >... etc.
                       if (status != 'Focus') {
-                        GoRouter.of(context).push(AppRouter.kPomodoro);
+                        GoRouter.of(context)
+                            .pushReplacement(AppRouter.kPomodoro);
                       } else if (cubit.round % 3 == 0 && cubit.round != 0) {
-                        // set long break timer by 15 min = 900 seconds
-                        cubit.setSeconds(cubit.longTimer);
-                        GoRouter.of(context).push(AppRouter.kLongBreak);
+                        cubit.setRound();
+
+                        GoRouter.of(context)
+                            .pushReplacement(AppRouter.kLongBreak);
                       } else {
-                        // set short break timer by 5 min = 300 seconds
-                        cubit.setSeconds(cubit.shortTimer);
-                        GoRouter.of(context).push(AppRouter.kShortBreak);
+                        cubit.setRound();
+
+                        GoRouter.of(context)
+                            .pushReplacement(AppRouter.kShortBreak);
                       }
                     }),
               ),
